@@ -17,7 +17,7 @@ class BlogSeeder extends Seeder
     {
         DB::table('blogs')->truncate();
 
-        User::factory()
+        Blog::factory()
             ->count(30)
             ->create();
 
