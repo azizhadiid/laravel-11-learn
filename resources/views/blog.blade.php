@@ -17,9 +17,7 @@
         <!-- Top Section: Pagination and Search -->
         <div class="row mb-4 align-items-center">
             <div class="col-md-6">
-                <div class="d-flex">
-                    {{ $blogs->links() }}
-                </div>
+                <a href="{{url('/blog/add')}}" class="btn btn-primary">Tambah Blog</a>
             </div>
             <div class="col-md-6">
                 <form action="" method="GET" class="d-flex justify-content-end">
@@ -29,6 +27,12 @@
                 </form>
             </div>
         </div>
+
+        @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+        @endif
 
         <!-- Alert for No Data -->
         @if ($blogs->count() === 0)
@@ -54,6 +58,10 @@
                 </div>
             </div>
             @endforeach
+
+            <div class="d-flex">
+                {{ $blogs->links() }}
+            </div>
         </div>
     </div>
 
