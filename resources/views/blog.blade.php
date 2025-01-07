@@ -17,7 +17,7 @@
         <!-- Top Section: Pagination and Search -->
         <div class="row mb-4 align-items-center">
             <div class="col-md-6">
-                <a href="{{url('/blog/add')}}" class="btn btn-primary">Tambah Blog</a>
+                <a href="{{url('blog/add')}}" class="btn btn-primary">Tambah Blog</a>
             </div>
             <div class="col-md-6">
                 <form action="" method="GET" class="d-flex justify-content-end">
@@ -50,9 +50,10 @@
                         <h5 class="card-title">{{ $blog->title }}</h5>
                         <h6 class="card-subtitle text-muted mb-3">{{ $blog->created_at}}</h6>
                         <p class="card-text flex-grow-1">{{ $blog->description }}</p>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class="btn btn-outline-primary btn-sm">Edit</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm">Hapus</a>
+                        <div class="d-flex justify-content-end">
+                            <a href="#" class="btn btn-outline-primary btn-sm mx-1">Edit</a>
+                            <a href="{{url('blog/'.$blog->id.'/detail')}}" class="btn btn-outline-success btn-sm mx-1">Detail</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm mx-1">Hapus</a>
                         </div>
                     </div>
                 </div>
