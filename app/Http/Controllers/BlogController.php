@@ -49,7 +49,7 @@ class BlogController extends Controller
     function detail($id)
     {
         // $blog = DB::table('blogs')->where('id', $id)->first();
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::with('comments')->findOrFail($id);
         // if (!$blog) {
         //     abort(404);
         // }

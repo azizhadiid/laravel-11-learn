@@ -24,6 +24,48 @@
                 </div>
             </div>
         </div>
+
+        <div class="mt-5">
+            @if ($errors->any())
+            <div class="alert alert-danger col-md-6 form-control">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+            @endif
+            <label for="comment">Comments :</label>
+            <form action="{{url('comment/'.$blog->id) }}" method="POST">
+                @csrf
+                {{-- <input type="hidden" name="blog_id" value="{{$blog->id}}"> --}}
+                <textarea name="comment_text" id="comment" rows="5" class="form-control"
+                    style="resize: none"></textarea>
+                <button class="btn btn-primary mt-3" type="submit">Submit</button>
+            </form>
+        </div>
+
+        <hr class="mt-5">
+
+        <div class="mt-5">
+            <div class="alert alert-warning {{ $blog->comments->count() === 0 ? 'd-block' : 'd-none' }}" role="alert">
+                {{ $blog->comments->count() === 0 ? 'Tidak Ada Komen!' : '' }}
+            </div>            
+            @foreach ($blog->comments as $comment)
+            <div class="card mb-3">
+                <h5 class="card-header">Featured</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">{{$comment->comment_text}}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
     </div>
 
 
