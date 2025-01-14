@@ -18,6 +18,16 @@
                 <p class="mt-4">
                     {{$blog->description}}
                 </p>
+
+                <div class="d-flex flex-wrap">
+                    @if ($blog->tags->isEmpty())
+                    <h5 class="me-2"><span class="badge text-bg-info text-light">No Tag</span></h5>
+                    @endif
+                    @foreach ($blog->tags as $tag)
+                    <h5 class="me-2"><span class="badge text-bg-info text-light">{{$tag->name}}</span></h5>
+                    @endforeach
+                </div>
+
                 <div>
                     <div class="d-flex flex-column align-items-end">{{$blog->created_at}}</div>
                     <div class="d-flex flex-column align-items-end">By Admin</div>
@@ -55,7 +65,7 @@
         <div class="mt-5">
             <div class="alert alert-warning {{ $blog->comments->count() === 0 ? 'd-block' : 'd-none' }}" role="alert">
                 {{ $blog->comments->count() === 0 ? 'Tidak Ada Komen!' : '' }}
-            </div>            
+            </div>
             @foreach ($blog->comments as $comment)
             <div class="card mb-3">
                 <h5 class="card-header">Featured</h5>
