@@ -50,10 +50,21 @@
                         <h5 class="card-title">{{ $blog->title }}</h5>
                         <h6 class="card-subtitle text-muted mb-3">{{ $blog->created_at}}</h6>
                         <p class="card-text flex-grow-1">{{ $blog->description }}</p>
-                        <div class="d-flex justify-content-end">
-                            <a href="{{url('blog/'.$blog->id.'/edit')}}" class="btn btn-outline-primary btn-sm mx-1">Edit</a>
-                            <a href="{{url('blog/'.$blog->id.'/detail')}}" class="btn btn-outline-success btn-sm mx-1">Detail</a>
-                            <a href="{{url('blog/'.$blog->id.'/delete')}}" class="btn btn-outline-danger btn-sm mx-1">Hapus</a>
+                        <div class="d-flex flex-wrap">
+                            @if ($blog->tags->isEmpty())
+                            <h5 class="me-2"><span class="badge text-bg-danger text-light">No Tag</span></h5>
+                            @endif
+                            @foreach ($blog->tags as $tag)
+                            <h5 class="me-2"><span class="badge text-bg-info text-light">{{$tag->name}}</span></h5>
+                            @endforeach
+                        </div>
+                        <div class="d-flex justify-content-end mt-5">
+                            <a href="{{url('blog/'.$blog->id.'/edit')}}"
+                                class="btn btn-outline-primary btn-sm mx-1">Edit</a>
+                            <a href="{{url('blog/'.$blog->id.'/detail')}}"
+                                class="btn btn-outline-success btn-sm mx-1">Detail</a>
+                            <a href="{{url('blog/'.$blog->id.'/delete')}}"
+                                class="btn btn-outline-danger btn-sm mx-1">Hapus</a>
                         </div>
                     </div>
                 </div>
