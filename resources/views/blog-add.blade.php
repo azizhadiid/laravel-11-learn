@@ -35,7 +35,20 @@
                 <div class="col-md-6 mt-3">
                     <label for="description" class="form-label">Description :</label>
                     <textarea class="form-control" placeholder="Tuliskan Deskripsi" id="description"
-                        style="height: 100px; resize: none; " name="description" rows="5">{{old('description')}}</textarea>
+                        style="height: 100px; resize: none; " name="description"
+                        rows="5">{{old('description')}}</textarea>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <label for="title" class="form-label">Tags :</label>
+                    @foreach ($tags as $key => $tag)
+                    <div>
+                        <input type="checkbox" id="tag{{$key}}" name="tags[]" value="{{$tag->id}}" class="form-check-input">
+                        <label class="form-check-label" for="tag{{$key}}">
+                            {{$tag->name}}
+                        </label>
+                    </div>
+                    @endforeach
                 </div>
 
                 <div class="col-md-6 mt-4">

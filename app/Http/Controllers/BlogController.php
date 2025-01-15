@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,8 @@ class BlogController extends Controller
 
     function add()
     {
-        return view('blog-add');
+        $tags = Tag::all();
+        return view('blog-add', ['tags' => $tags]);
     }
 
     function create(Request $request)
@@ -38,7 +40,8 @@ class BlogController extends Controller
         //     'description' => $request->description
         // ]);
 
-        Blog::create($request->all());
+        $blog = Blog::create($request->all());
+        $blog->tags()->attach($request->tags);
 
         // Perbaiki key flash message
         Session::flash('message', 'Blog telah ditambahkan');
@@ -59,11 +62,12 @@ class BlogController extends Controller
 
     function edit($id)
     {
-        $blog = Blog::findOrFail($id);
+        $tags = Tag::all();
+        $blog = Blog::with(['tags'])->findOrFail($id);
         // if (!$blog) {
         //     abort(404);
         // }
-        return view('blog-edit', ['blog' => $blog]);
+        return view('blog-edit', ['blog' => $blog, 'tags' => $tags]);
     }
     function update(Request $request, $id)
     {
@@ -78,6 +82,7 @@ class BlogController extends Controller
         // ]);
 
         $blog = Blog::findOrFail($id);
+        $blog->tags()->sync($request->tags);
         $blog->update($request->all());
 
         Session::flash('message', 'Blog telah diedit');
