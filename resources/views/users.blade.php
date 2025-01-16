@@ -44,6 +44,7 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $user->image ? $user->image->name : '-' }}</h5>
                         <h5 class="card-title">{{ $user->name }}</h5>
                         <h6 class="card-subtitle text-muted mb-3">{{ $user->email}}</h6>
                         {{-- <div class="d-flex justify-content-end">

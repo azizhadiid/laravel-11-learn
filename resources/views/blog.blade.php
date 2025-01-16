@@ -48,6 +48,7 @@
                 <div class="card shadow-sm h-100">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $blog->title }}</h5>
+                        <h5 class="card-title">{{ $blog->image ? $blog->image->name : '' }}</h5>
                         <h6 class="card-subtitle text-muted mb-3">{{ $blog->created_at}}</h6>
                         <p class="card-text flex-grow-1">{{ $blog->description }}</p>
                         <div class="d-flex flex-wrap">
