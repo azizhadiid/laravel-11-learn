@@ -82,7 +82,7 @@
                         @endif
                         
                         <!-- Tanggal Pembuatan -->
-                        <h6 class="card-subtitle text-muted mb-3">{{ $blog->created_at->format('F d, Y') }}</h6>
+                        <h6 class="card-subtitle text-muted mb-3">{{ $blog->created_at}}</h6>
                         
                         <!-- Deskripsi -->
                         <p class="card-text flex-grow-1">{{ Str::limit($blog->description, 100, '...') }}</p>
