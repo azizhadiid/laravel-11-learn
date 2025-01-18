@@ -88,13 +88,30 @@
                         <p class="card-text flex-grow-1">{{ Str::limit($blog->description, 100, '...') }}</p>
                         
                         <!-- Tags -->
-                        <div class="d-flex flex-wrap mb-3">
-                            @if ($blog->tags->isEmpty())
-                                <h5 class="me-2"><span class="badge text-bg-danger text-light">No Tag</span></h5>
-                            @endif
-                            @foreach ($blog->tags as $tag)
-                                <h5 class="me-2"><span class="badge text-bg-info text-light">{{ $tag->name }}</span></h5>
-                            @endforeach
+                        <div class="card-body">
+                            <!-- Tags Section -->
+                            <h5 class="card-title mb-3">Tags</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                @if ($blog->tags->isEmpty())
+                                    <span class="badge bg-danger text-light">No Tag</span>
+                                @else
+                                    @foreach ($blog->tags as $tag)
+                                        <span class="badge bg-info text-light">{{ $tag->name }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                    
+                            <!-- Categories Section -->
+                            <h5 class="card-title mt-4 mb-3">Categories</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                @if ($blog->categories->isEmpty())
+                                    <span class="text-muted">No Categories</span>
+                                @else
+                                    @foreach ($blog->categories as $categori)
+                                        <span class="badge bg-success text-light">{{ $categori->name }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                         
                         <!-- Tombol Aksi -->
