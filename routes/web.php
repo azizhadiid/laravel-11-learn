@@ -14,23 +14,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
-Route::get('/blog/add', [BlogController::class, 'add']);
-Route::post('/blog/create', [BlogController::class, 'create']);
-Route::get('/blog/{id}/detail', [BlogController::class, 'detail'])->name('blog-detail');
-Route::get('/blog/{id}/edit', [BlogController::class, 'edit']);
-Route::patch('/blog/{id}/update', [BlogController::class, 'update']);
-Route::get('/blog/{id}/delete', [BlogController::class, 'hapus']);
-Route::get('/blog/{id}/restore', [BlogController::class, 'restore']);
+Route::middleware('auth')->group(function () {
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+    Route::get('/blog/add', [BlogController::class, 'add']);
+    Route::post('/blog/create', [BlogController::class, 'create']);
+    Route::get('/blog/{id}/detail', [BlogController::class, 'detail'])->name('blog-detail');
+    Route::get('/blog/{id}/edit', [BlogController::class, 'edit']);
+    Route::patch('/blog/{id}/update', [BlogController::class, 'update']);
+    Route::get('/blog/{id}/delete', [BlogController::class, 'hapus']);
+    Route::get('/blog/{id}/restore', [BlogController::class, 'restore']);
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/phones', function () {
-    $phones = Phone::with('user')->get();
-    return $phones;
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/phones', function () {
+        $phones = Phone::with('user')->get();
+        return $phones;
+    });
+
+    Route::post('/comment/{blog_id}', [CommentController::class, 'store']);
+    Route::get('/images', [ImageController::class, 'index']);
+
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
 
-Route::post('/comment/{blog_id}', [CommentController::class, 'store']);
-Route::get('/images', [ImageController::class, 'index']);
-
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'store']);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'store']);
+});

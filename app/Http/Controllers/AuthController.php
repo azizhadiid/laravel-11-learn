@@ -24,7 +24,20 @@ class AuthController extends Controller
             # code...
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('blog');
         }
+
+        return back()->withErrors('Login Invalid')->onlyInput('email');
+    }
+
+    function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('login');
     }
 }
