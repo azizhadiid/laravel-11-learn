@@ -9,6 +9,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\CommentController;
+use App\Http\Middleware\EnsureTokenIsValid;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/phones', function () {
         $phones = Phone::with('user')->get();
         return $phones;
-    });
+    })->middleware('tokenvalid');
 
     Route::post('/comment/{blog_id}', [CommentController::class, 'store']);
     Route::get('/images', [ImageController::class, 'index']);
