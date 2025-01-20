@@ -30,7 +30,7 @@
 
                 <div>
                     <div class="d-flex flex-column align-items-end">{{$blog->created_at}}</div>
-                    <div class="d-flex flex-column align-items-end">By Admin</div>
+                    <div class="d-flex flex-column align-items-end">By  {{$blog->author ? $blog->author->name : "admin wak"}}</div>
                 </div>
             </div>
         </div>

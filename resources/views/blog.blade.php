@@ -112,6 +112,8 @@
                                     @endforeach
                                 @endif
                             </div>
+
+                            {{$blog->author ? $blog->author->name : "-"}}
                         </div>
                         
                         <!-- Tombol Aksi -->

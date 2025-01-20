@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
@@ -64,9 +65,15 @@ class BlogController extends Controller
     {
         $tags = Tag::all();
         $blog = Blog::with(['tags'])->findOrFail($id);
-        // if (!$blog) {
-        //     abort(404);
+
+        // if (!Gate::allows('update-blog', $blog)) {
+        //     abort(403);
         // }
+        $response = Gate::inspect('update-blog', $blog);
+        if (!$response->allowed()) {
+            abort(403, $response->message());
+        }
+
         return view('blog-edit', ['blog' => $blog, 'tags' => $tags]);
     }
     function update(Request $request, $id)
