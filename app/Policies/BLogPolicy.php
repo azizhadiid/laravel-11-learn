@@ -13,7 +13,7 @@ class BLogPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->active == 1;
     }
 
     /**
@@ -37,7 +37,7 @@ class BLogPolicy
      */
     public function update(User $user, BLog $bLog): bool
     {
-        return false;
+        return $user->id == $bLog->author_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class BLogPolicy
      */
     public function delete(User $user, BLog $bLog): bool
     {
-        return false;
+        return $user->id == $bLog->author_id;
     }
 
     /**

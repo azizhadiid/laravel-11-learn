@@ -118,9 +118,9 @@
                         
                         <!-- Tombol Aksi -->
                         <div class="d-flex justify-content-end mt-auto">
-                            <a href="{{ url('blog/' . $blog->id . '/edit') }}" class="btn btn-outline-primary btn-sm mx-1">Edit</a>
+                            @can('update', $blog)<a href="{{ url('blog/' . $blog->id . '/edit') }}" class="btn btn-outline-primary btn-sm mx-1">Edit</a> @endcan
                             <a href="{{ url('blog/' . $blog->id . '/detail') }}" class="btn btn-outline-success btn-sm mx-1">Detail</a>
-                            <a href="{{ url('blog/' . $blog->id . '/delete') }}" class="btn btn-outline-danger btn-sm mx-1">Hapus</a>
+                            @can('delete', $blog)<a href="{{ url('blog/' . $blog->id . '/delete') }}" class="btn btn-outline-danger btn-sm mx-1">Hapus</a>@endcan
                         </div>
                     </div>
                 </div>

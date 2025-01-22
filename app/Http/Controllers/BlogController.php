@@ -14,9 +14,10 @@ class BlogController extends Controller
     // membuat method index
     function index(Request $request)
     {
-        // $title = $request->title;
-        // $blogs = DB::table('blogs')->where('title', 'LIKE', '%' . $title . '%')->orderBy('id', 'desc')->simplePaginate(10);
-        // return view('blog', ['blogs' => $blogs, 'title' => $title]);
+        // Bagian Policy
+        if ($request->user()->cannot('viewAny', Blog::class)) {
+            abort(403);
+        }
 
         $title  = $request->title;
         $blogs = Blog::with(['tags', 'comments', 'image', 'ratings', 'categories'])->where('title', 'LIKE', '%' . $title . '%')->orderBy('id', 'asc')->simplePaginate(10);
@@ -61,10 +62,14 @@ class BlogController extends Controller
         return view('blog-detail', ['blog' => $blog]);
     }
 
-    function edit($id)
+    function edit(Request $request, $id)
     {
         $tags = Tag::all();
         $blog = Blog::with(['tags'])->findOrFail($id);
+        // Bagian Policy
+        if ($request->user()->cannot('update', $blog)) {
+            abort(403);
+        }
 
         // if (!Gate::allows('update-blog', $blog)) {
         //     abort(403);
@@ -76,6 +81,7 @@ class BlogController extends Controller
 
         return view('blog-edit', ['blog' => $blog, 'tags' => $tags]);
     }
+
     function update(Request $request, $id)
     {
         $request->validate([
@@ -87,8 +93,12 @@ class BlogController extends Controller
         //     'title' => $request->title,
         //     'description' => $request->description
         // ]);
-
+        // Bagian Policy
         $blog = Blog::findOrFail($id);
+        if ($request->user()->cannot('update', $blog)) {
+            abort(403);
+        }
+
         $blog->tags()->sync($request->tags);
         $blog->update($request->all());
 
