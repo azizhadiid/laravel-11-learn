@@ -4,6 +4,7 @@ use App\Models\Blog;
 use App\Models\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
@@ -40,4 +41,13 @@ Route::middleware('auth')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'store']);
+});
+
+Route::get('/upload', function () {
+    Storage::disk('local')->put('example.txt', 'Contents');
+});
+
+Route::get('/thefile', function () {
+    // return asset('storage/example.txt');
+    return Storage::url('example.txt');
 });
